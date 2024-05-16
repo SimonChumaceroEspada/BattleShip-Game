@@ -18,16 +18,16 @@ namespace Battleship
             Console.WriteLine("Welcome to Battleship!");
             Console.WriteLine("Enter the number of cells for the game:");
             int cellCount;
-            while (!int.TryParse(Console.ReadLine(), out cellCount) || cellCount < 1)
+            while (!int.TryParse(Console.ReadLine(), out cellCount) || cellCount < 2 || cellCount > 100)
             {
-                Console.WriteLine("Please enter a valid number (greater than 0):");
+                Console.WriteLine("Please enter a valid number (greater than 1 and less or equal than 100):");
             }
 
             InitializeGame(cellCount);
 
             Console.WriteLine("Please choose a cell (1-" + cellCount + ") to hide your ship:");
 
-            // Place players ship
+            // Place players ship with verification if the cell is valid
             bool validPosition = false;
             while (!validPosition)
             {
@@ -60,6 +60,7 @@ namespace Battleship
 
                 playerMoves.Add(playerAttempt);
 
+                // My Win Condition
                 if (playerAttempt == computerShip)
                 {
                     ShowBoard(cellCount);
@@ -95,6 +96,7 @@ namespace Battleship
             }
         }
 
+        // Initialize the game with empty cells in vectors
         static void InitializeGame(int cellCount)
         {
             playerCells = new char[cellCount];
