@@ -5,8 +5,8 @@ namespace Battleship
 {
     class BattleShipGame
     {
-        static char[] playerCells = new char[7];
-        static char[] computerCells = new char[7];
+        static char[] playerCells;
+        static char[] computerCells;
         static Random rnd = new Random();
         static int playerShip;
         static int computerShip;
@@ -15,47 +15,54 @@ namespace Battleship
 
         static void Main(string[] args)
         {
-            InitializeGame();
-
             Console.WriteLine("Welcome to Battleship!");
-            Console.WriteLine("Please choose a cell (1-7) to hide your ship:");
+            Console.WriteLine("Enter the number of cells for the game:");
+            int cellCount;
+            while (!int.TryParse(Console.ReadLine(), out cellCount) || cellCount < 1)
+            {
+                Console.WriteLine("Please enter a valid number (greater than 0):");
+            }
+
+            InitializeGame(cellCount);
+
+            Console.WriteLine("Please choose a cell (1-" + cellCount + ") to hide your ship:");
 
             // Place players ship
             bool validPosition = false;
             while (!validPosition)
             {
                 int.TryParse(Console.ReadLine(), out playerShip);
-                if (playerShip >= 1 && playerShip <= 7)
+                if (playerShip >= 1 && playerShip <= cellCount)
                 {
                     validPosition = true;
                 }
                 else
                 {
-                    Console.WriteLine("Please choose a valid cell (1-7):");
+                    Console.WriteLine("Please choose a valid cell (1-" + cellCount + "):");
                 }
             }
 
             // Place computer's ship
-            computerShip = rnd.Next(1, 8);
+            computerShip = rnd.Next(1, cellCount + 1);
 
             Console.Clear();
 
             // Start the game
             while (true)
             {
-                ShowBoard();
-                Console.WriteLine("Your turn. Choose a cell (1-7):");
+                ShowBoard(cellCount);
+                Console.WriteLine("Your turn. Choose a cell (1-" + cellCount + "):");
                 int playerAttempt;
-                while (!int.TryParse(Console.ReadLine(), out playerAttempt) || playerAttempt < 1 || playerAttempt > 7)
+                while (!int.TryParse(Console.ReadLine(), out playerAttempt) || playerAttempt < 1 || playerAttempt > cellCount)
                 {
-                    Console.WriteLine("Please enter a valid number (1-7):");
+                    Console.WriteLine("Please enter a valid number (1-" + cellCount + "):");
                 }
 
                 playerMoves.Add(playerAttempt);
 
                 if (playerAttempt == computerShip)
                 {
-                    ShowBoard();
+                    ShowBoard(cellCount);
                     Console.WriteLine("Congratulations! You've sunk the computer's ship! You win!");
                     break;
                 }
@@ -64,17 +71,18 @@ namespace Battleship
                     computerCells[playerAttempt - 1] = 'X';
                 }
 
+                // Check if the move has already been made
                 int computerAttempt;
                 do
                 {
-                    computerAttempt = rnd.Next(1, 8);
-                } while (computerMoves.Contains(computerAttempt)); // Check if the move has already been made
+                    computerAttempt = rnd.Next(1, cellCount + 1);
+                } while (computerMoves.Contains(computerAttempt));
 
                 computerMoves.Add(computerAttempt);
 
                 if (computerAttempt == playerShip)
                 {
-                    ShowBoard();
+                    ShowBoard(cellCount);
                     Console.WriteLine("The computer has sunk your ship! You lose!");
                     break;
                 }
@@ -87,16 +95,18 @@ namespace Battleship
             }
         }
 
-        static void InitializeGame()
+        static void InitializeGame(int cellCount)
         {
-            for (int i = 0; i < 7; i++)
+            playerCells = new char[cellCount];
+            computerCells = new char[cellCount];
+            for (int i = 0; i < cellCount; i++)
             {
                 playerCells[i] = '-';
                 computerCells[i] = '-';
             }
         }
 
-        static void ShowBoard()
+        static void ShowBoard(int cellCount)
         {
             Console.WriteLine("Computer's Cells:");
             foreach (var cell in computerCells)
