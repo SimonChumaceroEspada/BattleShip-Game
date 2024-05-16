@@ -3,7 +3,7 @@
 using System;
 
 
-// First Version
+// First Version and git test
 namespace Battleship
 {
     class Program
