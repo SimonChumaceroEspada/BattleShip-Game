@@ -1,18 +1,17 @@
-﻿// See https://aka.ms/new-console-template for more information
-// Console.WriteLine("Hello, World!");
-using System;
+﻿using System;
+using System.Collections.Generic;
 
-
-// First Version and git-test
 namespace Battleship
 {
-    class Program
+    class BattleShipGame
     {
         static char[] playerCells = new char[7];
         static char[] computerCells = new char[7];
         static Random rnd = new Random();
         static int playerShip;
         static int computerShip;
+        static List<int> playerMoves = new List<int>();
+        static List<int> computerMoves = new List<int>();
 
         static void Main(string[] args)
         {
@@ -21,7 +20,7 @@ namespace Battleship
             Console.WriteLine("Welcome to Battleship!");
             Console.WriteLine("Please choose a cell (1-7) to hide your ship:");
 
-            // Place player's ship
+            // Place players ship
             bool validPosition = false;
             while (!validPosition)
             {
@@ -52,6 +51,8 @@ namespace Battleship
                     Console.WriteLine("Please enter a valid number (1-7):");
                 }
 
+                playerMoves.Add(playerAttempt);
+
                 if (playerAttempt == computerShip)
                 {
                     ShowBoard();
@@ -63,7 +64,14 @@ namespace Battleship
                     computerCells[playerAttempt - 1] = 'X';
                 }
 
-                int computerAttempt = rnd.Next(1, 8);
+                int computerAttempt;
+                do
+                {
+                    computerAttempt = rnd.Next(1, 8);
+                } while (computerMoves.Contains(computerAttempt)); // Check if the move has already been made
+
+                computerMoves.Add(computerAttempt);
+
                 if (computerAttempt == playerShip)
                 {
                     ShowBoard();
@@ -100,6 +108,18 @@ namespace Battleship
             foreach (var cell in playerCells)
             {
                 Console.Write($"[{cell}]");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Player's Moves:");
+            foreach (var move in playerMoves)
+            {
+                Console.Write($"[{move}]");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Computer's Moves:");
+            foreach (var move in computerMoves)
+            {
+                Console.Write($"[{move}]");
             }
             Console.WriteLine();
         }
