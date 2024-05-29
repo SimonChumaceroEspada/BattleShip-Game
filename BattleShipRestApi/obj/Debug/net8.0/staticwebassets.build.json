@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "PecMZBn51g7e9z+HAmZGAMsvQ7YqgF2xSG9VBKjlT1g=",
+  "Source": "BattleShipRestApi",
+  "BasePath": "_content/BattleShipRestApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
