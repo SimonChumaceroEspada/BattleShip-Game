@@ -1,8 +1,7 @@
-﻿using BattleShip;
-using BattleShip.Models;
-
-namespace BattleShip.Services
+﻿namespace BattleShip.Services
 {
+    using BattleShip.Models;
+
     public class GameManager
     {
         private Player player;
@@ -12,6 +11,8 @@ namespace BattleShip.Services
         private int cellCount;
         private int? lastPlayerMove;
         private int? lastComputerMove;
+
+        public int CellCount => cellCount;
 
         public GameManager(int cellCount, Player player, Player computer)
         {
@@ -24,7 +25,6 @@ namespace BattleShip.Services
 
         public void StartGame()
         {
-            player.PlaceShip(cellCount);
             computer.PlaceShip(cellCount);
         }
 

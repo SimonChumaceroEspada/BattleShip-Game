@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BattleShip.Models
+﻿namespace BattleShip.Models
 {
     public class Board
     {

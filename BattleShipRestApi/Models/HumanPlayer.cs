@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BattleShip
+﻿namespace BattleShip.Models
 {
     public class HumanPlayer : Player
     {
-        public override void PlaceShip(int cellCount)
+        public override void PlaceShip(int cellCount, int position = -1)
         {
-            int position;
-            Console.WriteLine($"Please choose a cell (1-{cellCount}) to hide your ship:");
-            while (!int.TryParse(Console.ReadLine(), out position) || position < 1 || position > cellCount)
+            if (position == -1)
             {
-                Console.WriteLine($"Please choose a valid cell (1-{cellCount}):");
+                int chosenPosition;
+                Console.WriteLine($"Please choose a cell (1-{cellCount}) to hide your ship:");
+                while (!int.TryParse(Console.ReadLine(), out chosenPosition) || chosenPosition < 1 || chosenPosition > cellCount)
+                {
+                    Console.WriteLine($"Please choose a valid cell (1-{cellCount}):");
+                }
+                ShipPosition = chosenPosition;
             }
-            ShipPosition = position;
+            else
+            {
+                ShipPosition = position;
+            }
         }
 
         public override int MakeMove(int cellCount)
@@ -30,5 +31,4 @@ namespace BattleShip
             return move;
         }
     }
-
 }

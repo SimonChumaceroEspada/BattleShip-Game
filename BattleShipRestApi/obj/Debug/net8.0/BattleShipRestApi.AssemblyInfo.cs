@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BattleShipRestApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+913f2c6e986532a50f573db130544cb745bdee9e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+037d33194081d91c4a469eedd94345e9edb4862f")]
 [assembly: System.Reflection.AssemblyProductAttribute("BattleShipRestApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BattleShipRestApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
